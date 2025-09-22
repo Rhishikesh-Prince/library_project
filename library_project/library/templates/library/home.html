@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Welcome to the Library</h1>
+    <p class="lead">Browse books, borrow your favorites, and keep track of your borrowings.</p>
+    <a href="{% url 'books_list' %}" class="btn btn-primary btn-lg mt-3">View Books</a>
+</div>
+{% endblock %}

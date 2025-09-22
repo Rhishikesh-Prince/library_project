@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}My Borrowings{% endblock %}
+
+{% block content %}
+<h2>My Borrowings</h2>
+
+<h4>Active Borrowings</h4>
+{% if active %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Borrowed At</th>
+            <th>Due At</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for b in active %}
+        <tr>
+            <td>{{ b.book.title }}</td>
+            <td>{{ b.borrowed_at|date:"Y-m-d H:i" }}</td>
+            <td>{{ b.due_at|date:"Y-m-d" }}</td>
+            <td>
+                <a href="{% url 'return_book' b.pk %}" class="btn btn-sm btn-warning">Return</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>You have no active borrowings.</p>
+{% endif %}
+
+<h4 class="mt-4">Borrowing History</h4>
+{% if history %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Borrowed At</th>
+            <th>Returned At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for b in history %}
+        <tr>
+            <td>{{ b.book.title }}</td>
+            <td>{{ b.borrowed_at|date:"Y-m-d H:i" }}</td>
+            <td>{{ b.returned_at|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No borrowing history.</p>
+{% endif %}
+{% endblock %}

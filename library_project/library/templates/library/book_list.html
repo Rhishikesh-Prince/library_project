@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Books</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Available</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+    <tr>
+      <td>{{ book.title }}</td>
+      <td>{{ book.author }}</td>
+      <td>{{ book.available_copies }}</td>
+      <td>
+        {% if user.is_authenticated %}
+          {% if book.available_copies > 0 %}
+            <a href="{% url 'borrow_book' book.pk %}" class="btn btn-sm btn-primary">Borrow</a>
+          {% else %}
+            <span class="text-muted">Not Available</span>
+          {% endif %}
+        {% else %}
+          <a href="{% url 'home' %}">Login to Borrow</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
